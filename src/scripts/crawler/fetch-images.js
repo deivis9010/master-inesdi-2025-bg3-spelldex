@@ -2,16 +2,10 @@
 import fs from "fs";
 import axios from "axios";
 import path from "path";
+import { slugify } from "./slugify";
 
 const spells = JSON.parse(fs.readFileSync("./spells.json", "utf-8"));
 const iconsDir = "./icons";
-
-function slugify(name) {
-  return name
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "");
-}
 
 async function downloadIcon(url, filename) {
   const response = await axios.get(url, { responseType: "arraybuffer" });

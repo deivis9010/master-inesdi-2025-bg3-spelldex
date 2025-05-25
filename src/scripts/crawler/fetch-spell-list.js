@@ -3,6 +3,9 @@ import axios from "axios";
 import { load } from "cheerio";
 import fs from "fs";
 
+import { slugify } from "./slugify.js";
+import { parseDamage } from "./parse-damage.js";
+
 const CONTENT_ID = "#mw-content-text";
 const TABLE_CLASS = ".wikitable";
 
@@ -30,6 +33,7 @@ function parseTable($) {
     if (columns.length === 0) return;
 
     const name = $(columns[0]).find("a").attr("title") || "";
+    const url = $(columns[0]).find("a").attr("href") || "";
     const icon = $(columns[0]).find("img").attr("src") || "";
     const levelText = $(columns[1]).text().trim();
     const level = levelText === "C" ? 0 : parseInt(levelText, 10) || null;
@@ -41,6 +45,8 @@ function parseTable($) {
     const damage = $(columns[7]).text().trim();
 
     spells.push({
+      id: slugify(name),
+      url: `https://bg3.wiki${url}`,
       name,
       icon: `https://bg3.wiki${icon}`,
       level,
@@ -49,7 +55,7 @@ function parseTable($) {
       duration,
       range,
       type,
-      damage,
+      damage: parseDamage(damage),
     });
   });
 
