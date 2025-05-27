@@ -1,3 +1,3 @@
 export function App() {
-  return <>BG3 SpellDeck</>;
+  return <main>BG3 SpellDeck</main>;
 }
