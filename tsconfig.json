@@ -5,6 +5,11 @@
     "noFallthroughCasesInSwitch": true, // every switch case should break or return
     /* modules */
     "baseUrl": "src", // base path for imports
+    "paths": {
+      "src/*": [
+        "*"
+      ]
+    },
     "module": "ESNext", // ESModules & allows «import.meta»
     "moduleResolution": "Node", // recommended: ts mimic node resolution
     "resolveJsonModule": true, // allows .json files

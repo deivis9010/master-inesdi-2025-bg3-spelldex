@@ -1,5 +1,5 @@
+import classes from "src/data/classes.json";
 import c from "classnames";
-import classes from "../data/classes.json";
 
 import styles from "./class-grid.module.css";
 
