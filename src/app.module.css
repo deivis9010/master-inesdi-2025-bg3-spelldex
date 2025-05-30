@@ -1,0 +1,14 @@
+.classGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 0 auto;
+  justify-content: center;
+}
+
+@media (min-width: 600px) {
+  .classGrid {
+    max-width: 420px;
+    gap: 1.5rem;
+  }
+}
