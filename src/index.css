@@ -11,11 +11,41 @@ body {
   font-family: "Uncial Antiqua", "Times New Roman", serif;
   background: var(--bg);
   color: var(--ink-medium);
-  height: 100%;
   min-height: 100vh;
 
   /* center Y */
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+}
+
+/* Main app container with max-width */
+#root {
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  height: 100%;
+  padding: 2rem;
+}
+
+/* Media queries for responsive behavior */
+@media (max-width: 800px) {
+  #root {
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 768px) {
+  #root {
+    padding: 1.5rem;
+    max-width: 95%;
+  }
+}
+
+@media (max-width: 480px) {
+  #root {
+    padding: 1rem;
+    max-width: 100%;
+  }
 }
