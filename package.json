@@ -6,6 +6,9 @@
   "description": "A web application to display all spells in Baldur's Gate 3",
   "license": "MIT",
   "author": "manutero.developer@gmail.com",
+  "workspaces": [
+    "src/scripts/crawler"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
