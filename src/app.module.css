@@ -1,9 +1,3 @@
-.classGrid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
-}
 
 /* Paper grid texture overlay */
 main::before {

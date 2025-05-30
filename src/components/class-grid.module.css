@@ -1,3 +1,10 @@
+.classGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
 .classCell {
   position: relative; /* anchor for corners */
 
@@ -10,13 +17,22 @@
   margin: 0.5rem 0.3rem;
   padding: 3rem 2rem;
   border-radius: 1rem;
-
   border: 2px solid var(--gold-dark);
   cursor: pointer;
 }
 
 .classCell {
   transition: box-shadow 0.2s ease;
+  transition: filter 1s;
+  transition: opacity 1s;
+}
+
+.classGrid:has(.classCell:hover) .classCell:not(:hover) {
+  filter: blur(3px) grayscale(60%);
+  opacity: 0.3;
+  transition: filter 1s;
+  transition: opacity 1s;
+  pointer-events: none;
 }
 
 .classCell:hover {

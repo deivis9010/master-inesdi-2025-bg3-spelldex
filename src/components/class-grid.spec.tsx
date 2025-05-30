@@ -1,12 +1,12 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import { CharacterClass } from './character-class';
+import { ClassGrid } from './class-grid';
 
-describe('CharacterClass', () => {
+describe('ClassGrid', () => {
   it('renders the class name and icon', () => {
-    render(<CharacterClass name="Wizard" slug="wizard" />);
+    render(<ClassGrid />);
     expect(screen.getByText('Wizard')).toBeInTheDocument();
     const img = screen.getByAltText('Wizard');
-    expect(img).toHaveAttribute('src', '/assets/icons/classes/wizard.png');
+    expect(img).toHaveAttribute('src', 'src/assets/icons/classes/wizard.png');
   });
-})
+});
