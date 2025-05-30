@@ -1,0 +1,23 @@
+.spellDiagram {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.spellDiagram .level {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1;
+  border-bottom: 4px solid var(--bg-dark);
+}
+
+.spellDiagram .dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: var(--ink-light);
+  opacity: 0.6;
+}
