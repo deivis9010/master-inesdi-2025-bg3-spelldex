@@ -15,6 +15,10 @@
   cursor: pointer;
 }
 
+.classCell {
+  transition: box-shadow 0.2s ease;
+}
+
 .classCell:hover {
   box-shadow: 0 4px 16px 0 var(--gold-accent);
 }

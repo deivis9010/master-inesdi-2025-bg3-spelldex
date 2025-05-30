@@ -30,3 +30,8 @@ main::before {
   pointer-events: none;
   z-index: 1;
 }
+
+main > * {
+  position: relative;
+  z-index: 2;
+}
