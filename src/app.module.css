@@ -1,3 +1,34 @@
+/* Main app container with max-width */
+main {
+  position: relative;
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  height: 100%;
+  padding: 2rem;
+}
+
+/* Media queries for responsive behavior */
+@media (max-width: 800px) {
+  main {
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 768px) {
+  main {
+    padding: 1.5rem;
+    max-width: 95%;
+  }
+}
+
+@media (max-width: 480px) {
+  main {
+    padding: 1rem;
+    max-width: 100%;
+  }
+}
+
 /* Paper grid texture overlay */
 main::before {
   content: "";
@@ -30,7 +61,7 @@ main > * {
 }
 
 /* Background layer for SpellDiagram */
-main .background {
+main .spellDiagramBackground {
   position: fixed;
   top: 0;
   left: 0;
@@ -42,7 +73,7 @@ main .background {
   overflow: hidden;
 }
 
-main .background.backgroundHighlighted {
+main .spellDiagramBackground.backgroundHighlighted {
   opacity: 0.6;
   transition: opacity 0.5s ease;
 }

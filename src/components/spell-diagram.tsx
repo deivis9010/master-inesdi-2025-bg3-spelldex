@@ -8,7 +8,7 @@ import type { Spell, SpellId } from "src/models/spell";
 import styles from "./spell-diagram.module.css";
 
 type Props = {
-  hoveredClass: ClassId | null;
+  hoveredClass: ClassId | undefined;
 };
 
 export function SpellDiagram({ hoveredClass }: Props) {

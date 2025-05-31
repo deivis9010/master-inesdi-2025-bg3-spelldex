@@ -1,27 +1,31 @@
 import { useState } from "react";
-import { ClassGrid } from "src/components/class-grid";
+import { ClassGrid, ClassGridItem } from "src/components/class-grid";
 import { SpellDiagram } from "src/components/spell-diagram";
 import c from "classnames";
 
-import type { ClassId } from "src/models/character-class";
+import type { CharacterClass, ClassId } from "src/models/character-class";
 
 import styles from "./app.module.css";
 
 export function App() {
-  const [hoveredClass, setHoveredClass] = useState<ClassId | null>(null);
+  const [selectedClass, setSelectedClass] = useState<CharacterClass>();
+  const [highlightedClass, setHighlightedClass] = useState<ClassId>();
 
   return (
     <main className={styles.main}>
       <div
-        className={c(styles.background, hoveredClass && styles.backgroundHighlighted)}
+        className={c(
+          styles.spellDiagramBackground,
+          highlightedClass && styles.backgroundHighlighted
+        )}
       >
-        <SpellDiagram hoveredClass={hoveredClass} />
+        <SpellDiagram hoveredClass={highlightedClass} />
       </div>
-      <ClassGrid
-        highlight={(c) => {
-          setHoveredClass(c);
-        }}
-      />
+      {selectedClass ? (
+        <ClassGridItem highlighted {...selectedClass} />
+      ) : (
+        <ClassGrid highlight={setHighlightedClass} onClick={setSelectedClass} />
+      )}
     </main>
   );
 }

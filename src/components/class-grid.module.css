@@ -7,6 +7,7 @@
 
 .classCell {
   position: relative; /* anchor for corners */
+  max-width: 164px;
 
   display: flex;
   flex-direction: column;
@@ -22,17 +23,20 @@
 }
 
 .classCell {
-  transition: box-shadow 1s ease, border-color 1s ease, filter 1s, opacity 1s;
+  transition: box-shadow 1s ease, border-color 1s ease, background-color 1s, filter 1s, opacity 1s;
 }
 
-.classGrid:has(.classCell:hover) .classCell:not(:hover) {
+.classGrid:has(.classCell:hover) .classCell:not(:hover),
+.classGrid:has(.classCell.highlighted) .classCell:not(.highlighted) {
   filter: blur(4px) grayscale(80%);
   opacity: 0.2;
   transition: filter 1s, opacity 1s;
   pointer-events: none;
 }
 
-.classCell:hover {
+.classCell:hover,
+.classCell.highlighted {
+  background: var(--bg-light);
   border-color: var(--accent, var(--gold-accent));
   box-shadow: 0 4px 16px 0 var(--accent, var(--gold-accent));
 }
