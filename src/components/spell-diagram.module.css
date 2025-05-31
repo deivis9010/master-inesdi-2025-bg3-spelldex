@@ -11,13 +11,20 @@
   align-items: center;
   justify-content: space-between;
   flex: 1;
-  border-bottom: 4px solid var(--bg-dark);
+  border-bottom: 2px solid var(--bg-dark);
 }
 
 .spellDiagram .dot {
-  width: 4px;
-  height: 4px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   background-color: var(--ink-light);
-  opacity: 0.6;
+  opacity: 0.2;
+}
+
+.spellDiagram .dot.highlighted {
+  opacity: 1;
+  background-color: black;
+  border: 2px solid var(--gold-accent);
+  transition: opacity 2s ease, box-shadow 2s ease;
 }
