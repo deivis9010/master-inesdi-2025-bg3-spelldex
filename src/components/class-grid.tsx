@@ -1,5 +1,6 @@
 import c from "classnames";
 import classesJson from "src/data/classes.json";
+import { ACCENT_COLOR, DEFAULT_ACCENT_COLOR } from "src/data/accent-colors";
 
 import type { CharacterClass, ClassId } from "src/models/character-class";
 
@@ -31,11 +32,24 @@ type ItemProps = {
 };
 
 function ClassGridItem({ name, slug, highlight }: ItemProps) {
+  const mouseEnter = () => {
+    const accentColor = ACCENT_COLOR[slug];
+    if (accentColor) {
+      document.documentElement.style.setProperty("--accent", accentColor);
+    }
+    highlight(slug);
+  };
+
+  const mouseLeave = () => {
+    document.documentElement.style.setProperty("--accent", DEFAULT_ACCENT_COLOR);
+    highlight(null);
+  };
+
   return (
     <article
       className={styles.classCell}
-      onMouseEnter={() => highlight(slug)}
-      onMouseLeave={() => highlight(null)}
+      onMouseEnter={mouseEnter}
+      onMouseLeave={mouseLeave}
     >
       <div className={styles.iconWrapper}>
         <div className={c(styles.corner, styles.topLeft)} />

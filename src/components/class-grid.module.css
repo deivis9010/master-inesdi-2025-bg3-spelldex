@@ -22,7 +22,7 @@
 }
 
 .classCell {
-  transition: box-shadow 0.2s ease, filter 1s, opacity 1s;
+  transition: box-shadow 1s ease, border-color 1s ease, filter 1s, opacity 1s;
 }
 
 .classGrid:has(.classCell:hover) .classCell:not(:hover) {
@@ -33,7 +33,8 @@
 }
 
 .classCell:hover {
-  box-shadow: 0 4px 16px 0 var(--gold-accent);
+  border-color: var(--accent, var(--gold-accent));
+  box-shadow: 0 4px 16px 0 var(--accent, var(--gold-accent));
 }
 
 .classCell .iconWrapper {
