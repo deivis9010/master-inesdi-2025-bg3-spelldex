@@ -1,3 +1,4 @@
+import c from "classnames";
 import { useState } from "react";
 import { ClassGrid } from "src/components/class-grid";
 import { SpellDiagram } from "src/components/spell-diagram";
@@ -12,13 +13,25 @@ export function App() {
 
   return (
     <main className={styles.main}>
-      <SpellDiagram highlightedClass={highlightedClass} selectedClass={selectedClass} />
-
-      <ClassGrid
+      {/* Spell diagram appears first in the DOM for better accessibility when active */}
+      <SpellDiagram
+        highlightedClass={highlightedClass}
         selectedClass={selectedClass}
-        highlight={setHighlightedClass}
-        onClick={setSelectedClass}
       />
+
+      {/* Class grid gets backgrounded when a class is selected */}
+      <div
+        className={c(
+          styles.classGridWrapper,
+          selectedClass && styles.backgrounded
+        )}
+      >
+        <ClassGrid
+          selectedClass={selectedClass}
+          highlight={setHighlightedClass}
+          onClick={setSelectedClass}
+        />
+      </div>
     </main>
   );
 }

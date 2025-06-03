@@ -12,18 +12,32 @@ type Props = {
   highlightedClass: ClassId | undefined;
 };
 
-export function SpellDiagram({ highlightedClass }: Props) {
+export function SpellDiagram({ highlightedClass, selectedClass }: Props) {
   const spellsByLevel = groupSpellsByLevel(spells as Spell[]);
-  const highlightedSpells = highlightedClass
-    ? new Set((spellsByClass as SellsByClass)[highlightedClass])
+  const status = selectedClass
+    ? "selected"
+    : highlightedClass
+    ? "highlighted"
+    : "none";
+
+  const currentClass = selectedClass || highlightedClass;
+  const highlightedSpells = currentClass
+    ? new Set((spellsByClass as SellsByClass)[currentClass])
     : new Set<SpellId>();
 
   const isSpellHighlighted = (spell: Spell) =>
     highlightedClass && highlightedSpells.has(spell.id);
 
+  const isSpellDetailed = (spell: Spell) =>
+    selectedClass && highlightedSpells.has(spell.id);
+
   return (
     <div
-      className={c(styles.spellDiagram, highlightedClass && styles.highlighted)}
+      className={c(
+        styles.spellDiagram,
+        status === "selected" && styles.selected,
+        status === "highlighted" && styles.highlighted
+      )}
     >
       {Array.from({ length: 7 }, (_, level) => {
         const { firstHalf, secondHalf } = twoRows(spellsByLevel[level]);
@@ -36,6 +50,7 @@ export function SpellDiagram({ highlightedClass }: Props) {
                   key={`${level}-1-${idx}`}
                   spell={spell}
                   highlighted={isSpellHighlighted(spell)}
+                  detailed={isSpellDetailed(spell)}
                 />
               ))}
             </div>
@@ -45,6 +60,7 @@ export function SpellDiagram({ highlightedClass }: Props) {
                   key={`${level}-2-${idx}`}
                   spell={spell}
                   highlighted={isSpellHighlighted(spell)}
+                  detailed={isSpellDetailed(spell)}
                 />
               ))}
             </div>
@@ -64,21 +80,34 @@ function twoRows(spells: Spell[] = []) {
 }
 
 function Spell({
+  spell,
   highlighted,
+  detailed,
 }: {
   spell: Spell;
   highlighted: boolean | undefined;
+  detailed: boolean | undefined;
 }) {
   const animatedSpellStyles = {
-    "--randomDelay": (Math.random() * 3 + 1).toFixed(2) + "s",
-    "--randomDuration": (Math.random() * 4 + 2).toFixed(2) + "s",
+    "--randomDelay": (Math.random() * 2 + 1).toFixed(2) + "s",
+    "--randomDuration": (Math.random() + 0.5).toFixed(2) + "s",
   } as React.CSSProperties;
 
   return (
-    <div
-      className={c(styles.dot, highlighted && styles.highlighted)}
+    <article
+      className={c(
+        styles.dot,
+        highlighted && !detailed && styles.highlighted,
+        detailed && styles.detailed
+      )}
+      data-spell-id={spell.id}
       style={animatedSpellStyles}
-    />
+      aria-label={spell.name}
+    >
+      {detailed && (
+        <img src={spell.icon} alt={spell.name} className={styles.icon} />
+      )}
+    </article>
   );
 }
 

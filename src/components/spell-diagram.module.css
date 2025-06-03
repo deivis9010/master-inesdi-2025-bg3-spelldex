@@ -10,8 +10,6 @@
   top: 0;
   left: 0;
 
-  width: 100%;
-  height: 100%;
   padding: 2rem;
   opacity: 0.3;
 
@@ -19,9 +17,19 @@
   z-index: 1;
   overflow: hidden;
 
+  /* hovering */
   &.highlighted {
     opacity: 0.6;
     transition: opacity 0.5s ease;
+  }
+
+  /* diagram to foreground */
+  &.selected {
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 3; /* Above the class grid */
+
+    transition: opacity 0.5s ease, z-index 0s;
   }
 }
 
@@ -39,9 +47,12 @@
   flex: 0.5;
 }
 
-.spellDiagram .levelGroup .row:last-child,
-.spellDiagram .levelGroup .row:first-child {
+.spellDiagram .levelGroup .row:last-child {
   border-bottom: 2px solid var(--bg-dark);
+}
+
+.spellDiagram .levelGroup .row:first-child {
+  border-top: 2px solid var(--bg-dark);
 }
 
 .spellDiagram .dot {
@@ -64,5 +75,22 @@
 
     /* animation: pulse var(--randomDuration, 3s) ease-in-out
       var(--randomDelay, 1s) infinite; */
+  }
+
+  &.detailed {
+    width: 40px;
+    height: 40px;
+    opacity: 1;
+    background-color: var(--ink-medium);
+    border: 2px solid var(--accent, var(--gold-accent));
+
+    transition: width var(--randomDuration, 0.3s) ease var(--randomDelay, 1s), height var(--randomDuration, 0.3s) ease var(--randomDelay, 1s);
+
+    & img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
   }
 }
