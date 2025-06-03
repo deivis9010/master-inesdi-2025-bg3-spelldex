@@ -1,14 +1,14 @@
-import { useState } from "react";
-import { ClassGrid, ClassGridItem } from "src/components/class-grid";
-import { SpellDiagram } from "src/components/spell-diagram";
 import c from "classnames";
+import { useState } from "react";
+import { ClassGrid } from "src/components/class-grid";
+import { SpellDiagram } from "src/components/spell-diagram";
 
-import type { CharacterClass, ClassId } from "src/models/character-class";
+import type { ClassId } from "src/models/character-class";
 
 import styles from "./app.module.css";
 
 export function App() {
-  const [selectedClass, setSelectedClass] = useState<CharacterClass>();
+  const [selectedClass, setSelectedClass] = useState<ClassId>();
   const [highlightedClass, setHighlightedClass] = useState<ClassId>();
 
   return (
@@ -21,11 +21,12 @@ export function App() {
       >
         <SpellDiagram hoveredClass={highlightedClass} />
       </div>
-      {selectedClass ? (
-        <ClassGridItem highlighted {...selectedClass} />
-      ) : (
-        <ClassGrid highlight={setHighlightedClass} onClick={setSelectedClass} />
-      )}
+
+      <ClassGrid
+        selectedClass={selectedClass}
+        highlight={setHighlightedClass}
+        onClick={setSelectedClass}
+      />
     </main>
   );
 }
