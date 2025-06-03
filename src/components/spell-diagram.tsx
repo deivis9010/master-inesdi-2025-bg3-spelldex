@@ -23,50 +23,53 @@ export function SpellDiagram({ highlightedClass }: Props) {
 
   return (
     <div
-      className={c(
-        styles.spellDiagram,
-        highlightedClass && styles.highlighted
-      )}
+      className={c(styles.spellDiagram, highlightedClass && styles.highlighted)}
     >
       {Array.from({ length: 7 }, (_, level) => {
-        // Get spells for this level
-        const levelSpells = spellsByLevel[level] || [];
-
-        // Calculate the midpoint to split the array
-        const midIndex = Math.ceil(levelSpells.length / 2);
-
-        // Split spells into two rows
-        const firstHalf = levelSpells.slice(0, midIndex);
-        const secondHalf = levelSpells.slice(midIndex);
+        const { firstHalf, secondHalf } = twoRows(spellsByLevel[level]);
 
         return (
           <div key={level} className={styles.levelGroup} data-level={level}>
             <div className={styles.row}>
               {firstHalf.map((spell, idx) => (
-                <div
+                <Spell
                   key={`${level}-1-${idx}`}
-                  className={c(
-                    styles.dot,
-                    isSpellHighlighted(spell) && styles.highlighted
-                  )}
+                  spell={spell}
+                  highlighted={isSpellHighlighted(spell)}
                 />
               ))}
             </div>
             <div className={styles.row}>
               {secondHalf.map((spell, idx) => (
-                <div
-                  key={`${level}-2-${idx}`}
-                  className={c(
-                    styles.dot,
-                    isSpellHighlighted(spell) && styles.highlighted
-                  )}
-                />
+                <Spell key={`${level}-2-${idx}`} spell={spell} />
               ))}
             </div>
           </div>
         );
       })}
     </div>
+  );
+}
+
+function twoRows(spells: Spell[] = []) {
+  const half = Math.ceil(spells.length / 2);
+  return {
+    firstHalf: spells.slice(0, half),
+    secondHalf: spells.slice(half),
+  };
+}
+
+function Spell({ highlighted }: { spell: Spell; highlighted?: boolean }) {
+  const animatedSpellStyles = {
+    "--randomDelay": (Math.random() * 3 + 1).toFixed(2) + "s",
+    "--randomDuration": (Math.random() * 4 + 2).toFixed(2) + "s",
+  } as React.CSSProperties;
+
+  return (
+    <div
+      className={c(styles.dot, highlighted && styles.highlighted)}
+      style={animatedSpellStyles}
+    />
   );
 }
 
