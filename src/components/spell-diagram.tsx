@@ -41,7 +41,11 @@ export function SpellDiagram({ highlightedClass }: Props) {
             </div>
             <div className={styles.row}>
               {secondHalf.map((spell, idx) => (
-                <Spell key={`${level}-2-${idx}`} spell={spell} />
+                <Spell
+                  key={`${level}-2-${idx}`}
+                  spell={spell}
+                  highlighted={isSpellHighlighted(spell)}
+                />
               ))}
             </div>
           </div>
@@ -59,7 +63,12 @@ function twoRows(spells: Spell[] = []) {
   };
 }
 
-function Spell({ highlighted }: { spell: Spell; highlighted?: boolean }) {
+function Spell({
+  highlighted,
+}: {
+  spell: Spell;
+  highlighted: boolean | undefined;
+}) {
   const animatedSpellStyles = {
     "--randomDelay": (Math.random() * 3 + 1).toFixed(2) + "s",
     "--randomDuration": (Math.random() * 4 + 2).toFixed(2) + "s",
