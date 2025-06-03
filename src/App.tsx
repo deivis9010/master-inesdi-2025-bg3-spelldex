@@ -1,4 +1,3 @@
-import c from "classnames";
 import { useState } from "react";
 import { ClassGrid } from "src/components/class-grid";
 import { SpellDiagram } from "src/components/spell-diagram";
@@ -13,14 +12,7 @@ export function App() {
 
   return (
     <main className={styles.main}>
-      <div
-        className={c(
-          styles.spellDiagramBackground,
-          highlightedClass && styles.backgroundHighlighted
-        )}
-      >
-        <SpellDiagram hoveredClass={highlightedClass} />
-      </div>
+      <SpellDiagram highlightedClass={highlightedClass} selectedClass={selectedClass} />
 
       <ClassGrid
         selectedClass={selectedClass}

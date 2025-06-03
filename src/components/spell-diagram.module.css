@@ -1,17 +1,46 @@
 .spellDiagram {
   display: flex;
   flex-direction: column;
+
   width: 100%;
   height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 2rem;
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+
+  &.highlighted {
+    opacity: 0.6;
+    transition: opacity 0.5s ease;
+  }
 }
 
-.spellDiagram .level {
+.spellDiagram .levelGroup {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.spellDiagram .row {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  flex: 1;
+  flex: 0.5;
+}
+
+.spellDiagram .levelGroup .row:last-child {
   border-bottom: 2px solid var(--bg-dark);
+}
+
+.spellDiagram .levelGroup .row:first-child {
+  border-top: 2px solid var(--bg-dark);
 }
 
 .spellDiagram .dot {
@@ -20,11 +49,11 @@
   border-radius: 50%;
   background-color: var(--ink-light);
   opacity: 0.2;
-}
 
-.spellDiagram .dot.highlighted {
-  opacity: 1;
-  background-color: white;
-  border: 2px solid var(--accent, var(--gold-accent));
-  transition: opacity 1s, background-color 1s;
+  &.highlighted {
+    opacity: 1;
+    background-color: white;
+    border: 2px solid var(--accent, var(--gold-accent));
+    transition: opacity 1s, background-color 1s;
+  }
 }

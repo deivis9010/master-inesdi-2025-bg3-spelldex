@@ -8,33 +8,64 @@ import type { Spell, SpellId } from "src/models/spell";
 import styles from "./spell-diagram.module.css";
 
 type Props = {
-  hoveredClass: ClassId | undefined;
+  selectedClass: ClassId | undefined;
+  highlightedClass: ClassId | undefined;
 };
 
-export function SpellDiagram({ hoveredClass }: Props) {
+export function SpellDiagram({ highlightedClass }: Props) {
   const spellsByLevel = groupSpellsByLevel(spells as Spell[]);
-  const highlightedSpells = hoveredClass
-    ? new Set((spellsByClass as SellsByClass)[hoveredClass])
+  const highlightedSpells = highlightedClass
+    ? new Set((spellsByClass as SellsByClass)[highlightedClass])
     : new Set<SpellId>();
 
   const isSpellHighlighted = (spell: Spell) =>
-    hoveredClass && highlightedSpells.has(spell.id);
+    highlightedClass && highlightedSpells.has(spell.id);
 
   return (
-    <div className={styles.spellDiagram}>
-      {Array.from({ length: 7 }, (_, level) => (
-        <div key={level} className={styles.level} data-level={level}>
-          {spellsByLevel[level]?.map((spell, idx) => (
-            <div
-              key={idx}
-              className={c(
-                styles.dot,
-                isSpellHighlighted(spell) && styles.highlighted
-              )}
-            />
-          ))}
-        </div>
-      ))}
+    <div
+      className={c(
+        styles.spellDiagram,
+        highlightedClass && styles.highlighted
+      )}
+    >
+      {Array.from({ length: 7 }, (_, level) => {
+        // Get spells for this level
+        const levelSpells = spellsByLevel[level] || [];
+
+        // Calculate the midpoint to split the array
+        const midIndex = Math.ceil(levelSpells.length / 2);
+
+        // Split spells into two rows
+        const firstHalf = levelSpells.slice(0, midIndex);
+        const secondHalf = levelSpells.slice(midIndex);
+
+        return (
+          <div key={level} className={styles.levelGroup} data-level={level}>
+            <div className={styles.row}>
+              {firstHalf.map((spell, idx) => (
+                <div
+                  key={`${level}-1-${idx}`}
+                  className={c(
+                    styles.dot,
+                    isSpellHighlighted(spell) && styles.highlighted
+                  )}
+                />
+              ))}
+            </div>
+            <div className={styles.row}>
+              {secondHalf.map((spell, idx) => (
+                <div
+                  key={`${level}-2-${idx}`}
+                  className={c(
+                    styles.dot,
+                    isSpellHighlighted(spell) && styles.highlighted
+                  )}
+                />
+              ))}
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }

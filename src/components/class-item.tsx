@@ -84,10 +84,10 @@ export function ClassGridItem({
       }}
     >
       <div className={styles.iconWrapper}>
-        <div className={c(styles.corner, styles.topLeft)} />
-        <div className={c(styles.corner, styles.topRight)} />
-        <div className={c(styles.corner, styles.bottomRight)} />
-        <div className={c(styles.corner, styles.bottomLeft)} />
+        <div className={c(styles.corner, styles.topLeft)} aria-hidden />
+        <div className={c(styles.corner, styles.topRight)} aria-hidden />
+        <div className={c(styles.corner, styles.bottomRight)} aria-hidden />
+        <div className={c(styles.corner, styles.bottomLeft)} aria-hidden />
         <img
           src={`src/assets/icons/classes/${classId}.png`}
           alt={name}
