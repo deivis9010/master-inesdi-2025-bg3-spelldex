@@ -1,10 +1,11 @@
 import c from "classnames";
-import * as React from "react";
 import { ACCENT_COLOR, DEFAULT_ACCENT_COLOR } from "src/data/accent-colors";
 import classesJson from "src/data/classes.json";
+import { useClickOutsideEffect } from "src/hooks/use-click-outside";
 
 import type { CharacterClass, ClassId } from "src/models/character-class";
 
+import { useEffect, useRef } from "react";
 import styles from "./class-grid.module.css";
 
 type GridProps = {
@@ -13,39 +14,115 @@ type GridProps = {
   selectedClass?: ClassId;
 };
 
+const classes = classesJson as CharacterClass[];
+
+const KEYBOARD_KEYS = [
+  "ArrowRight",
+  "ArrowLeft",
+  "ArrowUp",
+  "ArrowDown",
+  "Escape",
+  "Backspace",
+];
+
 export function ClassGrid({ selectedClass, highlight, onClick }: GridProps) {
-  const classes = classesJson as CharacterClass[];
-  const gridRef = React.useRef<HTMLElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
+  const itemButtonRefs = useRef<(HTMLButtonElement | null)[]>([]);
+
   const items = selectedClass
     ? classes.filter((cls) => cls.slug === selectedClass)
     : classes;
 
-  React.useEffect(function cleanSelectedClassClickingOutside() {
-    if (!selectedClass) return;
-
-    const clickOutside = (event: MouseEvent) => {
-      if (gridRef.current && !gridRef.current.contains(event.target as Node)) {
+  useClickOutsideEffect({
+    ref,
+    cb: () => {
+      if (selectedClass) {
         onClick(undefined);
       }
-    };
+    },
+  });
 
-    document.addEventListener("mousedown", clickOutside);
+  const currentHighlight = () => {
+    return selectedClass
+      ? items.findIndex((cls) => cls.slug === selectedClass)
+      : Array.from(itemButtonRefs.current).findIndex(
+          (ref) => ref === document.activeElement
+        );
+  };
 
-    return () => {
-      document.removeEventListener("mousedown", clickOutside);
-    };
-  }, [selectedClass, onClick]);
+  const keyDown = (event: React.KeyboardEvent) => {
+    if (!document.activeElement?.classList.contains(styles.classCell)) {
+      return;
+    }
+
+    if (!KEYBOARD_KEYS.includes(event.key)) {
+      return;
+    }
+
+    if (
+      (event.key === "Escape" || event.key === "Backspace") &&
+      selectedClass
+    ) {
+      event.preventDefault();
+      onClick(undefined);
+      return;
+    }
+
+    const currentIndex = currentHighlight();
+    if (currentIndex < 0) {
+      return;
+    }
+
+    let nextIndex = currentIndex;
+    switch (event.key) {
+      case "ArrowRight":
+      case "ArrowDown":
+        nextIndex = Math.min(items.length - 1, currentIndex + 1);
+        break;
+      case "ArrowLeft":
+      case "ArrowUp":
+        nextIndex = Math.max(0, currentIndex - 1);
+        break;
+      default:
+        break;
+    }
+
+    if (nextIndex !== currentIndex) {
+      event.preventDefault();
+      itemButtonRefs.current[nextIndex]?.focus();
+    }
+  };
 
   return (
-    <section ref={gridRef} className={styles.classGrid} aria-label="Class Grid">
-      {items.map((cls) => (
+    <section
+      ref={ref}
+      className={styles.classGrid}
+      aria-label="Class Grid"
+      onKeyDown={keyDown}
+      role="grid"
+    >
+      {items.map((cls, index) => (
         <ClassGridItem
           key={cls.slug}
           name={cls.name}
-          slug={cls.slug}
+          classId={cls.slug}
           selected={selectedClass === cls.slug}
           highlight={highlight}
           onClick={() => onClick(cls.slug)}
+          ref={(el) => {
+            if (el) {
+              itemButtonRefs.current[index] = el;
+              if (selectedClass === cls.slug) {
+                el.focus();
+              }
+            } else {
+              itemButtonRefs.current[index] = null;
+            }
+
+            return () => {
+              itemButtonRefs.current[index] = null;
+            };
+          }}
         />
       ))}
     </section>
@@ -54,45 +131,54 @@ export function ClassGrid({ selectedClass, highlight, onClick }: GridProps) {
 
 type ItemProps = {
   name: string;
-  slug: ClassId;
+  classId: ClassId;
   selected?: boolean;
-  onClick?: () => void;
-  highlight?: (c: ClassId | undefined) => void;
-};
+  ref?: React.Ref<HTMLButtonElement>;
+  highlight: (c: ClassId | undefined) => void;
+} & React.ComponentProps<"button">;
 
 function ClassGridItem({
   name,
-  slug,
+  classId,
   selected,
+  ref,
   highlight,
   onClick,
+  onFocus,
+  onBlur,
 }: ItemProps) {
-  const accentColor = ACCENT_COLOR[slug];
+  const accentColor = ACCENT_COLOR[classId];
 
-  // Set accent color if highlighted prop is true
-  React.useEffect(() => {
-    if (selected && accentColor) {
-      document.documentElement.style.setProperty("--accent", accentColor);
-      return () => {
-        document.documentElement.style.setProperty(
-          "--accent",
-          DEFAULT_ACCENT_COLOR
-        );
-      };
+  useEffect(
+    function setAccentColorWhenSelected() {
+      if (selected && accentColor) {
+        document.documentElement.style.setProperty("--accent", accentColor);
+        return () => {
+          document.documentElement.style.setProperty(
+            "--accent",
+            DEFAULT_ACCENT_COLOR
+          );
+        };
+      }
+    },
+    [selected, accentColor]
+  );
+
+  const applyHighlight = () => {
+    if (selected) {
+      return;
     }
-  }, [selected, accentColor]);
-
-  const mouseEnter = () => {
-    if (selected || !highlight) return;
 
     if (accentColor) {
       document.documentElement.style.setProperty("--accent", accentColor);
     }
-    highlight(slug);
+    highlight(classId);
   };
 
-  const mouseLeave = () => {
-    if (selected || !highlight) return;
+  const removeHighlight = () => {
+    if (selected) {
+      return;
+    }
 
     document.documentElement.style.setProperty(
       "--accent",
@@ -102,12 +188,23 @@ function ClassGridItem({
   };
 
   return (
-    <article
-      className={c(styles.classCell, { [styles.highlighted]: selected })}
-      onMouseEnter={mouseEnter}
-      onMouseLeave={mouseLeave}
-      onClick={onClick}
+    <button
+      ref={ref}
+      className={c(styles.classCell, selected && styles.highlighted)}
+      tabIndex={0}
+      aria-pressed={selected}
       aria-label={name}
+      onMouseEnter={applyHighlight}
+      onMouseLeave={removeHighlight}
+      onClick={onClick}
+      onFocus={(ev) => {
+        applyHighlight();
+        onFocus?.(ev);
+      }}
+      onBlur={(ev) => {
+        removeHighlight();
+        onBlur?.(ev);
+      }}
     >
       <div className={styles.iconWrapper}>
         <div className={c(styles.corner, styles.topLeft)} />
@@ -115,12 +212,12 @@ function ClassGridItem({
         <div className={c(styles.corner, styles.bottomRight)} />
         <div className={c(styles.corner, styles.bottomLeft)} />
         <img
-          src={`src/assets/icons/classes/${slug}.png`}
+          src={`src/assets/icons/classes/${classId}.png`}
           alt={name}
           className={styles.icon}
         />
       </div>
       <span className={styles.className}>{name}</span>
-    </article>
+    </button>
   );
 }

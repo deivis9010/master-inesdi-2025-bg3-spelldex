@@ -34,6 +34,7 @@
     "noEmit": true // checks for errors only
   },
   "include": [
-    "src"
+    "src",
+    "./jest.setup.ts",
   ]
 }
