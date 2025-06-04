@@ -10,9 +10,14 @@ import styles from "./spell-diagram.module.css";
 type Props = {
   selectedClass: ClassId | undefined;
   highlightedClass: ClassId | undefined;
+  background?: boolean;
 };
 
-export function SpellDiagram({ highlightedClass, selectedClass }: Props) {
+export function SpellDiagram({
+  highlightedClass,
+  selectedClass,
+  background,
+}: Props) {
   const spellsByLevel = groupSpellsByLevel(spells as Spell[]);
   const status = selectedClass
     ? "selected"
@@ -35,6 +40,7 @@ export function SpellDiagram({ highlightedClass, selectedClass }: Props) {
     <div
       className={c(
         styles.spellDiagram,
+        background && styles.background,
         status === "selected" && styles.selected,
         status === "highlighted" && styles.highlighted
       )}

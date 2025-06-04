@@ -1,6 +1,9 @@
+@import "/src/z-index.css";
 @import "./pulse.css";
 
 .spellDiagram {
+  --border-width: 2px;
+
   display: flex;
   flex-direction: column;
 
@@ -11,11 +14,14 @@
   left: 0;
 
   padding: 2rem;
-  opacity: 0.3;
 
   pointer-events: none;
-  z-index: 1;
   overflow: hidden;
+
+  &.background {
+    z-index: var(--z-background);
+    opacity: 0.3;
+  }
 
   /* hovering */
   &.highlighted {
@@ -27,9 +33,9 @@
   &.selected {
     opacity: 1;
     pointer-events: auto;
-    z-index: 3; /* Above the class grid */
+    z-index: var(--z-foreground);
 
-    transition: opacity 0.5s ease, z-index 0s;
+    transition: opacity 0.5s ease;
   }
 }
 
@@ -47,12 +53,12 @@
   flex: 0.5;
 }
 
-.spellDiagram .levelGroup .row:last-child {
-  border-bottom: 2px solid var(--bg-dark);
-}
-
 .spellDiagram .levelGroup .row:first-child {
   border-top: 2px solid var(--bg-dark);
+}
+
+.spellDiagram .levelGroup:last-child .row:last-child {
+  border-bottom: 2px solid var(--bg-dark);
 }
 
 .spellDiagram .dot {
@@ -72,9 +78,6 @@
       0 0 10px rgba(255, 255, 255, 0.3);
 
     transition: opacity 1s, background-color 1s;
-
-    /* animation: pulse var(--randomDuration, 3s) ease-in-out
-      var(--randomDelay, 1s) infinite; */
   }
 
   &.detailed {
@@ -84,7 +87,8 @@
     background-color: var(--ink-medium);
     border: 2px solid var(--accent, var(--gold-accent));
 
-    transition: width var(--randomDuration, 0.3s) ease var(--randomDelay, 1s), height var(--randomDuration, 0.3s) ease var(--randomDelay, 1s);
+    transition: width var(--randomDuration, 0.3s) ease var(--randomDelay, 1s),
+      height var(--randomDuration, 0.3s) ease var(--randomDelay, 1s);
 
     & img {
       width: 100%;

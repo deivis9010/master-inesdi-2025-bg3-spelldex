@@ -1,3 +1,5 @@
+@import './z-index.css';
+
 /* Main app container with max-width */
 main {
   position: relative;
@@ -52,23 +54,10 @@ main::before {
       var(--bg-texture) 4px
     );
   pointer-events: none;
-  z-index: 0;
+  z-index: var(--z-paper-texture);
 }
 
 main > * {
   position: relative;
   z-index: 1;
-}
-
-/* Layer management for class grid and spell diagram */
-.classGridWrapper {
-  position: relative;
-  z-index: 2; /* Higher than background, lower than foreground spell diagram when active */
-  transition: opacity 0.5s ease;
-}
-
-.classGridWrapper.backgrounded {
-  opacity: 0.3;
-  pointer-events: none;
-  transition: opacity 0.5s ease;
 }

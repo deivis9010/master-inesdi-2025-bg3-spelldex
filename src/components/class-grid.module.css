@@ -1,8 +1,16 @@
+@import "/src/z-index.css";
+
 .classGrid {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
   justify-content: center;
+  z-index: var(--z-foreground);
+
+  &.background {
+    z-index: var(--z-background); 
+    opacity: 0.3;
+  }
 }
 
 .classCell {

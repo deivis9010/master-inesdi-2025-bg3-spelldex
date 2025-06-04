@@ -1,3 +1,4 @@
+import c from "classnames";
 import classesJson from "src/data/classes.json";
 import { useClickOutsideEffect } from "src/hooks/use-click-outside";
 import { ClassGridItem } from "./class-item";
@@ -8,9 +9,10 @@ import type { CharacterClass, ClassId } from "src/models/character-class";
 import styles from "./class-grid.module.css";
 
 type Props = {
+  selectedClass?: ClassId;
+  background?: boolean;
   onClick: (c: ClassId | undefined) => void;
   highlight: (c: ClassId | undefined) => void;
-  selectedClass?: ClassId;
 };
 
 const classes = classesJson as CharacterClass[];
@@ -24,7 +26,12 @@ const KEYBOARD_KEYS = [
   "Backspace",
 ];
 
-export function ClassGrid({ selectedClass, highlight, onClick }: Props) {
+export function ClassGrid({
+  selectedClass,
+  background,
+  highlight,
+  onClick,
+}: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const itemButtonRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
@@ -95,7 +102,7 @@ export function ClassGrid({ selectedClass, highlight, onClick }: Props) {
   return (
     <section
       ref={ref}
-      className={styles.classGrid}
+      className={c(styles.classGrid, background && styles.background)}
       aria-label="Class Grid"
       onKeyDown={keyDown}
       role="grid"

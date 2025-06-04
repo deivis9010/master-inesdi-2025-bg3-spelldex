@@ -10,28 +10,22 @@ import styles from "./app.module.css";
 export function App() {
   const [selectedClass, setSelectedClass] = useState<ClassId>();
   const [highlightedClass, setHighlightedClass] = useState<ClassId>();
+  const background = selectedClass ? "classGrid" : "spellDiagram";
 
   return (
     <main className={styles.main}>
-      {/* Spell diagram appears first in the DOM for better accessibility when active */}
       <SpellDiagram
         highlightedClass={highlightedClass}
         selectedClass={selectedClass}
+        background={background === "spellDiagram"}
       />
 
-      {/* Class grid gets backgrounded when a class is selected */}
-      <div
-        className={c(
-          styles.classGridWrapper,
-          selectedClass && styles.backgrounded
-        )}
-      >
-        <ClassGrid
-          selectedClass={selectedClass}
-          highlight={setHighlightedClass}
-          onClick={setSelectedClass}
-        />
-      </div>
+      <ClassGrid
+        selectedClass={selectedClass}
+        background={background === "classGrid"}
+        highlight={setHighlightedClass}
+        onClick={setSelectedClass}
+      />
     </main>
   );
 }
