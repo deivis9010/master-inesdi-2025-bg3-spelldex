@@ -1,10 +1,10 @@
 import c from "classnames";
-import { useEffect, useMemo, useState } from "react";
 import spellsByClass from "src/data/spells-by-class.json";
 import spells from "src/data/spells.json";
+import { Spell } from "./spell";
 
 import type { ClassId, SellsByClass } from "src/models/character-class";
-import type { Spell, SpellId } from "src/models/spell";
+import type { SpellId } from "src/models/spell";
 
 import styles from "./spell-diagram.module.css";
 
@@ -86,62 +86,7 @@ function twoRows(spells: Spell[] = []) {
   };
 }
 
-function Spell({
-  spell,
-  highlighted,
-  detailed,
-}: {
-  spell: Spell;
-  highlighted: boolean | undefined;
-  detailed: boolean | undefined;
-}) {
-  const [showImage, setShowImage] = useState(false);
-  const randomDuration = useMemo(() => (Math.random() + 0.5).toFixed(2), []);
-  const randomDelay = useMemo(() => (Math.random() * 2 + 1).toFixed(2), []);
 
-  const animatedSpellStyles = {
-    "--randomDelay": randomDelay + "s",
-    "--randomDuration": randomDuration + "s",
-  } as React.CSSProperties;
-
-  useEffect(
-    function setShowImageWhenTransitionEnds() {
-      if (detailed) {
-        const transitionTime =
-          (parseFloat(randomDuration) + parseFloat(randomDelay)) * 1000;
-
-        const timer = setTimeout(() => {
-          setShowImage(true);
-        }, transitionTime);
-
-        return () => {
-          clearTimeout(timer);
-          setShowImage(false);
-        };
-      } else {
-        setShowImage(false);
-      }
-    },
-    [detailed, randomDuration, randomDelay]
-  );
-
-  return (
-    <article
-      className={c(
-        styles.dot,
-        highlighted && !detailed && styles.highlighted,
-        detailed && styles.detailed
-      )}
-      data-spell-id={spell.id}
-      style={animatedSpellStyles}
-      aria-label={spell.name}
-    >
-      {detailed && showImage && (
-        <img src={spell.icon} alt={spell.name} className={styles.icon} />
-      )}
-    </article>
-  );
-}
 
 function groupSpellsByLevel(spells: Spell[]) {
   return spells.reduce((acc, spell) => {
