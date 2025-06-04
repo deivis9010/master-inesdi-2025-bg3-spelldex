@@ -1,5 +1,6 @@
 import c from "classnames";
 import { useEffect, useMemo, useState } from "react";
+import upcastIcon from "src/assets/icons/other/upcast.png";
 
 import type { Spell } from "src/models/spell";
 
@@ -54,9 +55,15 @@ export function Spell({
       data-spell-id={spell.id}
       style={animatedSpellStyles}
       aria-label={spell.name}
+      aria-detailed={detailed ? "true" : "false"}
     >
       {detailed && showImage && (
-        <img src={spell.icon} alt={spell.name} className={styles.icon} />
+        <div className={styles.image}>
+          <img src={spell.icon} alt={spell.name} className={styles.icon} />
+          {spell.upcast && (
+            <img src={upcastIcon} alt="upcast" className={styles.upcast} />
+          )}
+        </div>
       )}
     </article>
   );

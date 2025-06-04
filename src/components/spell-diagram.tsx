@@ -5,7 +5,7 @@ import { Spell } from "./spell";
 
 import type { ClassId, SellsByClass } from "src/models/character-class";
 import type { SpellId } from "src/models/spell";
-
+import type { Spell as SpellType } from "src/models/spell";
 import styles from "./spell-diagram.module.css";
 
 type Props = {
@@ -19,7 +19,7 @@ export function SpellDiagram({
   selectedClass,
   background,
 }: Props) {
-  const spellsByLevel = groupSpellsByLevel(spells as Spell[]);
+  const spellsByLevel = groupSpellsByLevel(spells as SpellType[]);
   const status = selectedClass
     ? "selected"
     : highlightedClass
@@ -31,10 +31,10 @@ export function SpellDiagram({
     ? new Set((spellsByClass as SellsByClass)[currentClass])
     : new Set<SpellId>();
 
-  const isSpellHighlighted = (spell: Spell) =>
+  const isSpellHighlighted = (spell: SpellType) =>
     highlightedClass && highlightedSpells.has(spell.id);
 
-  const isSpellDetailed = (spell: Spell) =>
+  const isSpellDetailed = (spell: SpellType) =>
     selectedClass && highlightedSpells.has(spell.id);
 
   return (
@@ -78,7 +78,7 @@ export function SpellDiagram({
   );
 }
 
-function twoRows(spells: Spell[] = []) {
+function twoRows(spells: SpellType[] = []) {
   const half = Math.ceil(spells.length / 2);
   return {
     firstHalf: spells.slice(0, half),
@@ -86,14 +86,12 @@ function twoRows(spells: Spell[] = []) {
   };
 }
 
-
-
-function groupSpellsByLevel(spells: Spell[]) {
-  return spells.reduce((acc, spell) => {
+function groupSpellsByLevel(spells: SpellType[]) {
+  return spells.reduce<Record<number, SpellType[]>>((acc, spell) => {
     if (!acc[spell.level]) {
       acc[spell.level] = [];
     }
     acc[spell.level].push(spell);
     return acc;
-  }, {} as Record<number, Spell[]>);
+  }, {});
 }
