@@ -1,5 +1,4 @@
 @import "/src/z-index.css";
-@import "./pulse.css";
 
 .spellDiagram {
   --border-width: 2px;
@@ -13,7 +12,7 @@
   top: 0;
   left: 0;
 
-  padding: 2rem;
+  padding: 2rem 6rem;
 
   pointer-events: none;
   overflow: hidden;
@@ -70,4 +69,3 @@
 .spellDiagram .levelGroup:last-child .row:last-child {
   border-bottom: 2px solid var(--bg-dark);
 }
-

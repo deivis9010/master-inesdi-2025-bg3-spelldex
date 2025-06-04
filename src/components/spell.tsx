@@ -15,6 +15,8 @@ export function Spell({
   highlighted: boolean | undefined;
   detailed: boolean | undefined;
 }) {
+  const [selected, setSelected] = useState(false);
+
   const [showImage, setShowImage] = useState(false);
   const randomDuration = useMemo(() => (Math.random() + 0.5).toFixed(2), []);
   const randomDelay = useMemo(() => (Math.random() * 2 + 1).toFixed(2), []);
@@ -45,17 +47,26 @@ export function Spell({
     [detailed, randomDuration, randomDelay]
   );
 
+  const onClick = () => {
+    if (!detailed) {
+      return;
+    }
+    setSelected(!selected);
+  };
+
   return (
     <article
       className={c(
         styles.spell,
         highlighted && !detailed && styles.highlighted,
-        detailed && styles.detailed
+        detailed && styles.detailed,
+        detailed && selected && styles.selected,
       )}
       data-spell-id={spell.id}
       style={animatedSpellStyles}
       aria-label={spell.name}
       aria-detailed={detailed ? "true" : "false"}
+      {...(detailed ? { onClick } : {})}
     >
       {detailed && showImage && (
         <div className={styles.image}>
