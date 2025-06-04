@@ -1,4 +1,5 @@
 import c from "classnames";
+import { useEffect, useMemo, useState } from "react";
 import spellsByClass from "src/data/spells-by-class.json";
 import spells from "src/data/spells.json";
 
@@ -94,10 +95,35 @@ function Spell({
   highlighted: boolean | undefined;
   detailed: boolean | undefined;
 }) {
+  const [showImage, setShowImage] = useState(false);
+  const randomDuration = useMemo(() => (Math.random() + 0.5).toFixed(2), []);
+  const randomDelay = useMemo(() => (Math.random() * 2 + 1).toFixed(2), []);
+
   const animatedSpellStyles = {
-    "--randomDelay": (Math.random() * 2 + 1).toFixed(2) + "s",
-    "--randomDuration": (Math.random() + 0.5).toFixed(2) + "s",
+    "--randomDelay": randomDelay + "s",
+    "--randomDuration": randomDuration + "s",
   } as React.CSSProperties;
+
+  useEffect(
+    function setShowImageWhenTransitionEnds() {
+      if (detailed) {
+        const transitionTime =
+          (parseFloat(randomDuration) + parseFloat(randomDelay)) * 1000;
+
+        const timer = setTimeout(() => {
+          setShowImage(true);
+        }, transitionTime);
+
+        return () => {
+          clearTimeout(timer);
+          setShowImage(false);
+        };
+      } else {
+        setShowImage(false);
+      }
+    },
+    [detailed, randomDuration, randomDelay]
+  );
 
   return (
     <article
@@ -110,7 +136,7 @@ function Spell({
       style={animatedSpellStyles}
       aria-label={spell.name}
     >
-      {detailed && (
+      {detailed && showImage && (
         <img src={spell.icon} alt={spell.name} className={styles.icon} />
       )}
     </article>

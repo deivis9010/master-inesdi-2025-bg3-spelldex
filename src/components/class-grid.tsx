@@ -39,15 +39,6 @@ export function ClassGrid({
     ? classes.filter((cls) => cls.slug === selectedClass)
     : classes;
 
-  useClickOutsideEffect({
-    ref,
-    cb: () => {
-      if (selectedClass) {
-        onClick(undefined);
-      }
-    },
-  });
-
   const currentHighlight = () => {
     return selectedClass
       ? items.findIndex((cls) => cls.slug === selectedClass)
@@ -62,15 +53,6 @@ export function ClassGrid({
     }
 
     if (!KEYBOARD_KEYS.includes(event.key)) {
-      return;
-    }
-
-    if (
-      (event.key === "Escape" || event.key === "Backspace") &&
-      selectedClass
-    ) {
-      event.preventDefault();
-      onClick(undefined);
       return;
     }
 
