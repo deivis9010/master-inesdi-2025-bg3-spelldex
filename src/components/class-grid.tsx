@@ -1,6 +1,6 @@
 import c from "classnames";
 import classesJson from "src/data/classes.json";
-import { useClickOutsideEffect } from "src/hooks/use-click-outside";
+
 import { ClassGridItem } from "./class-item";
 import { useRef } from "react";
 

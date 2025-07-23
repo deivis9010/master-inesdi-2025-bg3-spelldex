@@ -2,9 +2,25 @@ import c from "classnames";
 import { useEffect } from "react";
 import { ACCENT_COLOR, DEFAULT_ACCENT_COLOR } from "src/data/accent-colors";
 
+import bardIcon from "src/assets/icons/classes/bard.png";
+import clericIcon from "src/assets/icons/classes/cleric.png";
+import druidIcon from "src/assets/icons/classes/druid.png";
+import sorcererIcon from "src/assets/icons/classes/sorcerer.png";
+import warlockIcon from "src/assets/icons/classes/warlock.png";
+import wizardIcon from "src/assets/icons/classes/wizard.png";
+
 import type { ClassId } from "src/models/character-class";
 
 import styles from "./class-grid.module.css";
+
+const ASSETS: Record<ClassId, string> = {
+  bard: bardIcon,
+  cleric: clericIcon,
+  druid: druidIcon,
+  sorcerer: sorcererIcon,
+  warlock: warlockIcon,
+  wizard: wizardIcon,
+};
 
 type Props = {
   name: string;
@@ -88,11 +104,7 @@ export function ClassGridItem({
         <div className={c(styles.corner, styles.topRight)} aria-hidden />
         <div className={c(styles.corner, styles.bottomRight)} aria-hidden />
         <div className={c(styles.corner, styles.bottomLeft)} aria-hidden />
-        <img
-          src={`src/assets/icons/classes/${classId}.png`}
-          alt={name}
-          className={styles.icon}
-        />
+        <img src={ASSETS[classId]} alt={name} className={styles.icon} />
       </div>
       <span className={styles.className}>{name}</span>
     </button>
