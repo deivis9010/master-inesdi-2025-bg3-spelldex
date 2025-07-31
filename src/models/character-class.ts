@@ -14,4 +14,13 @@ export type ClassId =
   | "warlock"
   | "wizard";
 
+export const CLASS_IDS: ClassId[] = [
+  "bard",
+  "cleric",
+  "druid",
+  "sorcerer",
+  "warlock",
+  "wizard"
+];
+
 export type SellsByClass = Record<ClassId, SpellId[]>;
