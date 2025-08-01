@@ -12,6 +12,8 @@ export function useHomeNavigation() {
   const { classId } = useParams<{ classId?: string }>();
   const [highlightedClass, setHighlightedClass] = useState<ClassId>();
   
+ 
+  
   const selectedClass = classId && isValidClassId(classId) ? classId : undefined;
   const background = selectedClass ? "classGrid" : "spellDiagram";
 

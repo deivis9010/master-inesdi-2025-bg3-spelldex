@@ -34,15 +34,12 @@ export function ClassGrid({
 }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const itemButtonRefs = useRef<(HTMLButtonElement | null)[]>([]);
-
-  const items = selectedClass
-    ? classes.filter((cls) => cls.slug === selectedClass)
-    : classes;
+  //bugfix: se quito el condicional para mostrar todas siempre no solo las seleccionadas
+  const items =  classes;
 
   const currentHighlight = () => {
-    return selectedClass
-      ? items.findIndex((cls) => cls.slug === selectedClass)
-      : Array.from(itemButtonRefs.current).findIndex(
+    //bugfix: se quito el condicional para mostrar todas siempre no solo las seleccionadas
+    return  Array.from(itemButtonRefs.current).findIndex(
           (ref) => ref === document.activeElement
         );
   };
@@ -78,6 +75,15 @@ export function ClassGrid({
     if (nextIndex !== currentIndex) {
       event.preventDefault();
       itemButtonRefs.current[nextIndex]?.focus();
+      
+      //bugfix: selecciona la clase al navegar con el teclado
+      const nextClass = items[nextIndex];
+      if (nextClass) {
+        
+        onClick(nextClass.slug);
+      }
+
+      
     }
   };
 

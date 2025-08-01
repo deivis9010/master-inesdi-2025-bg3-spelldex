@@ -56,7 +56,7 @@ export function ClassGridItem({
     },
     [selected, accentColor]
   );
-
+  
   const applyHighlight = () => {
     if (selected) {
       return;
