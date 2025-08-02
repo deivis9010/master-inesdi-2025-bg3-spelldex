@@ -49,7 +49,7 @@ export function useHomeNavigation() {
       return;
     }
   };
-
+  // Maneja el clic en una clase para navegar a su página
   const handleClassClick = (newClassId: ClassId | undefined) => {
     if (newClassId) {
       navigate(`/classes/${newClassId}`);
