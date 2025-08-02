@@ -3,6 +3,7 @@
 exports[`<ClassGrid /> renders the grid: match snapshot 1`] = `
 <section
   aria-label="Class Grid"
+  class=""
   role="grid"
 >
   <button
@@ -13,20 +14,23 @@ exports[`<ClassGrid /> renders the grid: match snapshot 1`] = `
   >
     <div>
       <div
+        aria-hidden="true"
         class=""
       />
       <div
+        aria-hidden="true"
         class=""
       />
       <div
+        aria-hidden="true"
         class=""
       />
       <div
+        aria-hidden="true"
         class=""
       />
       <img
         alt="Bard"
-        src="src/assets/icons/classes/bard.png"
       />
     </div>
     <span>
@@ -41,20 +45,23 @@ exports[`<ClassGrid /> renders the grid: match snapshot 1`] = `
   >
     <div>
       <div
+        aria-hidden="true"
         class=""
       />
       <div
+        aria-hidden="true"
         class=""
       />
       <div
+        aria-hidden="true"
         class=""
       />
       <div
+        aria-hidden="true"
         class=""
       />
       <img
         alt="Cleric"
-        src="src/assets/icons/classes/cleric.png"
       />
     </div>
     <span>
@@ -69,20 +76,23 @@ exports[`<ClassGrid /> renders the grid: match snapshot 1`] = `
   >
     <div>
       <div
+        aria-hidden="true"
         class=""
       />
       <div
+        aria-hidden="true"
         class=""
       />
       <div
+        aria-hidden="true"
         class=""
       />
       <div
+        aria-hidden="true"
         class=""
       />
       <img
         alt="Druid"
-        src="src/assets/icons/classes/druid.png"
       />
     </div>
     <span>
@@ -97,20 +107,23 @@ exports[`<ClassGrid /> renders the grid: match snapshot 1`] = `
   >
     <div>
       <div
+        aria-hidden="true"
         class=""
       />
       <div
+        aria-hidden="true"
         class=""
       />
       <div
+        aria-hidden="true"
         class=""
       />
       <div
+        aria-hidden="true"
         class=""
       />
       <img
         alt="Sorcerer"
-        src="src/assets/icons/classes/sorcerer.png"
       />
     </div>
     <span>
@@ -125,20 +138,23 @@ exports[`<ClassGrid /> renders the grid: match snapshot 1`] = `
   >
     <div>
       <div
+        aria-hidden="true"
         class=""
       />
       <div
+        aria-hidden="true"
         class=""
       />
       <div
+        aria-hidden="true"
         class=""
       />
       <div
+        aria-hidden="true"
         class=""
       />
       <img
         alt="Warlock"
-        src="src/assets/icons/classes/warlock.png"
       />
     </div>
     <span>
@@ -153,20 +169,23 @@ exports[`<ClassGrid /> renders the grid: match snapshot 1`] = `
   >
     <div>
       <div
+        aria-hidden="true"
         class=""
       />
       <div
+        aria-hidden="true"
         class=""
       />
       <div
+        aria-hidden="true"
         class=""
       />
       <div
+        aria-hidden="true"
         class=""
       />
       <img
         alt="Wizard"
-        src="src/assets/icons/classes/wizard.png"
       />
     </div>
     <span>

@@ -3,7 +3,10 @@ import { ClassGrid } from "./class-grid";
 
 describe("<ClassGrid />", () => {
   it('renders the grid: match snapshot', () => {
-    render(<ClassGrid onClick={() => {}} highlight={() => {}} />);
+    const mockOnClick = jest.fn();
+    const mockHighlight = jest.fn();
+    
+    render(<ClassGrid onClick={mockOnClick} highlight={mockHighlight} />);
 
     const section = screen.getByRole("grid", {
       name: "Class Grid",
