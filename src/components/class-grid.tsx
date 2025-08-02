@@ -22,8 +22,7 @@ const KEYBOARD_KEYS = [
   "ArrowLeft",
   "ArrowUp",
   "ArrowDown",
-  "Escape",
-  "Backspace",
+  "Enter",
 ];
 
 export function ClassGrid({
@@ -68,6 +67,15 @@ export function ClassGrid({
       case "ArrowUp":
         nextIndex = Math.max(0, currentIndex - 1);
         break;
+      case "Enter":
+        {
+          // Navegar a la clase actualmente enfocada/highlighted
+          const currentClass = items[currentIndex];
+          if (currentClass) {
+            onClick(currentClass.slug);
+          }
+          return;
+        }
       default:
         break;
     }
