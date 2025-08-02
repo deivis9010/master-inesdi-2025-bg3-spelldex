@@ -88,7 +88,7 @@ export function Tooltip({ spell, children, show }: TooltipProps) {
                 {hasConcentration && (
                   <div className={styles.icon} title="Requires Concentration">
                      <img 
-                      src="/src/assets/icons/other/concentration.png" 
+                      src="/icons/other/concentration.png" 
                       alt="Requires Concentration"
                       width="24"
                       height="24"
@@ -100,7 +100,7 @@ export function Tooltip({ spell, children, show }: TooltipProps) {
                 {isUpcast && (
                   <div className={styles.icon} title="Can be upcast">
                     <img 
-                      src="/src/assets/icons/other/upcast2.png" 
+                      src="/icons/other/upcast2.png" 
                       alt="Can be upcast"
                       width="24"
                       height="24"
