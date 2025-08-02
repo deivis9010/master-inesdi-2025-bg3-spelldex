@@ -1,0 +1,105 @@
+.triggerWrapper {
+  display: contents;
+}
+
+.tooltip {
+  background: var(--bg-dark, #1a1a1a);
+  border: 2px solid var(--accent, #d4af37);
+  border-radius: 8px;
+  padding: 18px;
+  max-width: 320px;
+  min-width: 280px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  animation: fadeIn 0.2s ease-out;
+  pointer-events: none;
+}
+
+.tooltipContent {
+  color: var(--ink-light, #ffffff);
+}
+
+.spellName {
+  margin: 0 0 12px 0;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--accent, #d4af37);
+}
+
+.spellInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.level {
+  font-size: 0.9rem;
+  color: var(--ink-medium, #cccccc);
+}
+
+.iconRow {
+  display: flex;
+  gap: 10px;
+}
+
+.icon {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  background: var(--bg-medium, #333333);
+  border-radius: 50%;
+  border: 1px solid var(--ink-medium, #666666);
+  transition: all 0.2s ease;
+}
+
+.icon:hover {
+  background: var(--accent, #d4af37);
+  border-color: var(--accent, #d4af37);
+  transform: scale(1.1);
+}
+
+.iconImage {
+  border-radius: 12px;
+  filter: brightness(1.1) contrast(1.2);
+  transition: all 0.2s ease;
+}
+
+.icon:hover .iconImage {
+  filter: brightness(1.3) contrast(1.4) drop-shadow(0 0 4px rgba(212, 175, 55, 0.6));
+}
+
+.spellDetails {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--ink-medium, #cccccc);
+}
+
+.spellDetails > div {
+  margin-bottom: 4px;
+}
+
+.tooltipArrow {
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid var(--accent, #d4af37);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
