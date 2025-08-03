@@ -1,6 +1,22 @@
 {
   "rewrites": [
     {
+      "source": "/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/classes",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/classes/(.*)",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/not-found",
+      "destination": "/index.html"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
