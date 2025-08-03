@@ -1,24 +1,7 @@
 {
-  "trailingSlash": false,
   "rewrites": [
     {
-      "source": "/classes/:classId",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/classes/:classId/:spell",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/classes",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/not-found",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/:path*",
+      "source": "/(.*)",
       "destination": "/index.html"
     }
   ]
