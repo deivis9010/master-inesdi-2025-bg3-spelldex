@@ -1,19 +1,7 @@
 {
   "rewrites": [
     {
-      "source": "/",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/classes",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/classes/druid1",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/classes/(.*)",
+      "source": "/classes/:classId",
       "destination": "/index.html"
     },
     {
@@ -21,7 +9,7 @@
       "destination": "/index.html"
     },
     {
-      "source": "/:path*",
+      "source": "/(.*)",
       "destination": "/index.html"
     }
   ]
