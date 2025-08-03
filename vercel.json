@@ -1,9 +1,15 @@
 {
-  "trailingSlash": true,
+  "trailingSlash": false,
   "rewrites": [
     {
-      "source": "/((?!_next|assets|favicon\\.ico|robots\\.txt).*)",
+      "source": "/(.*)",
       "destination": "/index.html"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ]
 }
