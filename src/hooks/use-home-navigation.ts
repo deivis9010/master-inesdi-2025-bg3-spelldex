@@ -15,13 +15,11 @@ export function useHomeNavigation() {
  
   
   const selectedClass = classId && isValidClassId(classId) ? classId : undefined;
+  const isInvalid = classId ? !isValidClassId(classId) : false;
   const background = selectedClass ? "classGrid" : "spellDiagram";
 
   useEffect(() => {
-    if (classId && !isValidClassId(classId)) {
-      // Redirigir si classId es inválido
-      navigate("/not-found");
-    } else if (!classId) {
+    if (!classId) {
       // Si no hay classId (estamos en / o /classes), limpiar highlight y foco
       //bugfix: limpiar highlight y quitar foco de cualquier botón
       setHighlightedClass(undefined);
@@ -29,7 +27,7 @@ export function useHomeNavigation() {
         document.activeElement.blur();
       }
     }
-  }, [classId, navigate]);
+  }, [classId]);
 
   const onKeyDown = (event: React.KeyboardEvent) => {
     if (event.key === "Escape" || event.key === "Backspace") {
@@ -60,6 +58,7 @@ export function useHomeNavigation() {
     selectedClass,
     highlightedClass,
     background,
+    isInvalid,
     setHighlightedClass,
     onKeyDown,
     handleClassClick
