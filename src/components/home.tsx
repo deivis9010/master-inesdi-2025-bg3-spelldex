@@ -27,6 +27,7 @@ export function Home() {
         selectedClass={selectedClass}
         background={background === "spellDiagram"}
       />
+      
 
       <ClassGrid
         selectedClass={selectedClass}
