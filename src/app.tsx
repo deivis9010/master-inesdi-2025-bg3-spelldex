@@ -6,7 +6,7 @@ import { PageNotFound } from "./components/page-not-found";
 
 export function App() {
   return (
-    <main>
+   
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/classes" element={<Home />} />
@@ -14,6 +14,6 @@ export function App() {
         <Route path="/not-found" element={<NotFound />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
-    </main>
+    
   );
 }
