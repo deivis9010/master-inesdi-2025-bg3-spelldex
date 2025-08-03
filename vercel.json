@@ -1,15 +1,8 @@
 {
+  "trailingSlash": false,
   "rewrites": [
     {
-      "source": "/classes/:classId",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/not-found",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/(.*)",
+      "source": "/((?!_next|assets|favicon\\.ico|robots\\.txt).*)",
       "destination": "/index.html"
     }
   ]
