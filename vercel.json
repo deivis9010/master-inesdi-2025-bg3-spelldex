@@ -9,6 +9,10 @@
       "destination": "/index.html"
     },
     {
+      "source": "/classes/druid1",
+      "destination": "/index.html"
+    },
+    {
       "source": "/classes/(.*)",
       "destination": "/index.html"
     },
@@ -17,7 +21,7 @@
       "destination": "/index.html"
     },
     {
-      "source": "/(.*)",
+      "source": "/:path*",
       "destination": "/index.html"
     }
   ]
