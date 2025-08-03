@@ -10,13 +10,33 @@ export function App() {
  
 
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/classes" element={<Home />} />
-      <Route path="/classes/:classId" element={<Home />} />
-      <Route path="/not-found" element={<div>Class Not Found</div>} />
-      <Route path="*" element={<div>Page Not Found</div>} />
+    <>
       
-    </Routes>
+      <main>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/classes" element={<Home />} />
+          <Route path="/classes/:classId" element={<Home />} />
+          <Route
+            path="/not-found"
+            element={
+              <div>
+                <h2>Class Not Found</h2>
+                <a href="/">Back to Home</a>
+              </div>
+            }
+          />
+          <Route
+            path="*"
+            element={
+              <div>
+                <h2>Page Not Found</h2>
+                <a href="/">Back to Home</a>
+              </div>
+            }
+          />
+        </Routes>
+      </main>
+    </>
   );
 }
