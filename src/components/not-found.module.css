@@ -1,0 +1,38 @@
+.content {
+  text-align: center;
+  padding: 50px 40px;
+  max-width: 550px;
+  width: 100%;
+  margin: auto;
+}
+
+.title {
+  font-size: 3.5rem;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  font-family: "Uncial Antiqua", cursive;
+}
+
+.message {
+  font-size: 1.25rem;
+  color: #34495e;
+  margin-bottom: 35px;
+  line-height: 1.7;
+}
+
+.button {
+  background: #2c3e50;
+  color: white;
+  border: none;
+  padding: 15px 35px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.button:hover {
+  background: #4ca1af;
+}
